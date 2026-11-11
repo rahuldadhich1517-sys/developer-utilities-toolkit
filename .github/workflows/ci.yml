@@ -75,4 +75,4 @@ jobs:
           name: package-tarball
 
       - name: Verify Consumer Installation and Subpaths
-        run: node scripts/verify-tarball.mjs
+        run: node scripts/verify-tarball.mjs rahul_dadhich15-developer-utilities-toolkit-*.tgz

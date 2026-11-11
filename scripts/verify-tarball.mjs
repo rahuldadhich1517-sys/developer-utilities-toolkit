@@ -5,14 +5,26 @@ import path from "node:path";
 
 console.log("=== Verifying Tarball in Clean Consumer Environment ===");
 
-// 1. Pack tarball
-console.log("Running npm pack...");
-const packOutput = execSync("npm pack", { encoding: "utf-8" });
-const lines = packOutput.trim().split(/\r?\n/);
-const tarballFilename = lines[lines.length - 1].trim();
-const tarballPath = path.resolve(tarballFilename);
+// 1. Use a supplied CI artifact or pack locally when run standalone.
+const suppliedTarball = process.argv[2];
+let shouldRemoveTarball = false;
+let tarballPath;
 
-console.log(`Created tarball: ${tarballFilename}`);
+if (suppliedTarball) {
+  tarballPath = path.resolve(suppliedTarball);
+  if (!fs.existsSync(tarballPath)) {
+    throw new Error(`Provided tarball does not exist: ${tarballPath}`);
+  }
+} else {
+  console.log("Running npm pack...");
+  const packOutput = execSync("npm pack", { encoding: "utf-8" });
+  const lines = packOutput.trim().split(/\r?\n/);
+  const tarballFilename = lines[lines.length - 1].trim();
+  tarballPath = path.resolve(tarballFilename);
+  shouldRemoveTarball = true;
+}
+
+console.log(`Using tarball: ${tarballPath}`);
 
 // 2. Create isolated temp directory
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "toolkit-consumer-"));
@@ -75,7 +87,9 @@ try {
   // Clean up
   try {
     fs.rmSync(tempDir, { recursive: true, force: true });
-    fs.rmSync(tarballPath, { force: true });
+    if (shouldRemoveTarball) {
+      fs.rmSync(tarballPath, { force: true });
+    }
   } catch {
     // Ignore cleanup errors
   }
