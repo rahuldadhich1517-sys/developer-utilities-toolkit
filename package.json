@@ -1,0 +1,176 @@
+{
+  "name": "@rahul_dadhich15/developer-utilities-toolkit",
+  "version": "0.1.0",
+  "description": "Zero-dependency, browser-first developer utilities toolkit for modern web applications and developer tools.",
+  "author": "Rahul Dadhich",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahul_dadhich15/developer-utilities-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rahul_dadhich15/developer-utilities-toolkit/issues"
+  },
+  "homepage": "https://github.com/rahul_dadhich15/developer-utilities-toolkit#readme",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./pastebin": {
+      "types": {
+        "import": "./dist/pastebin/index.d.ts",
+        "require": "./dist/pastebin/index.d.cts"
+      },
+      "import": "./dist/pastebin/index.js",
+      "require": "./dist/pastebin/index.cjs"
+    },
+    "./ansi-color": {
+      "types": {
+        "import": "./dist/ansi-color/index.d.ts",
+        "require": "./dist/ansi-color/index.d.cts"
+      },
+      "import": "./dist/ansi-color/index.js",
+      "require": "./dist/ansi-color/index.cjs"
+    },
+    "./selector-to-xpath": {
+      "types": {
+        "import": "./dist/selector-to-xpath/index.d.ts",
+        "require": "./dist/selector-to-xpath/index.d.cts"
+      },
+      "import": "./dist/selector-to-xpath/index.js",
+      "require": "./dist/selector-to-xpath/index.cjs"
+    },
+    "./email-extract": {
+      "types": {
+        "import": "./dist/email-extract/index.d.ts",
+        "require": "./dist/email-extract/index.d.cts"
+      },
+      "import": "./dist/email-extract/index.js",
+      "require": "./dist/email-extract/index.cjs"
+    },
+    "./hex-view": {
+      "types": {
+        "import": "./dist/hex-view/index.d.ts",
+        "require": "./dist/hex-view/index.d.cts"
+      },
+      "import": "./dist/hex-view/index.js",
+      "require": "./dist/hex-view/index.cjs"
+    },
+    "./html-live-edit": {
+      "types": {
+        "import": "./dist/html-live-edit/index.d.ts",
+        "require": "./dist/html-live-edit/index.d.cts"
+      },
+      "import": "./dist/html-live-edit/index.js",
+      "require": "./dist/html-live-edit/index.cjs"
+    },
+    "./keycode-find": {
+      "types": {
+        "import": "./dist/keycode-find/index.d.ts",
+        "require": "./dist/keycode-find/index.d.cts"
+      },
+      "import": "./dist/keycode-find/index.js",
+      "require": "./dist/keycode-find/index.cjs"
+    },
+    "./lua-validate": {
+      "types": {
+        "import": "./dist/lua-validate/index.d.ts",
+        "require": "./dist/lua-validate/index.d.cts"
+      },
+      "import": "./dist/lua-validate/index.js",
+      "require": "./dist/lua-validate/index.cjs"
+    },
+    "./raw-file-view": {
+      "types": {
+        "import": "./dist/raw-file-view/index.d.ts",
+        "require": "./dist/raw-file-view/index.d.cts"
+      },
+      "import": "./dist/raw-file-view/index.js",
+      "require": "./dist/raw-file-view/index.cjs"
+    },
+    "./stack-trace-parse": {
+      "types": {
+        "import": "./dist/stack-trace-parse/index.d.ts",
+        "require": "./dist/stack-trace-parse/index.d.cts"
+      },
+      "import": "./dist/stack-trace-parse/index.js",
+      "require": "./dist/stack-trace-parse/index.cjs"
+    },
+    "./xpath-test": {
+      "types": {
+        "import": "./dist/xpath-test/index.d.ts",
+        "require": "./dist/xpath-test/index.d.cts"
+      },
+      "import": "./dist/xpath-test/index.js",
+      "require": "./dist/xpath-test/index.cjs"
+    },
+    "./browser": {
+      "types": {
+        "import": "./dist/browser/index.d.ts",
+        "require": "./dist/browser/index.d.cts"
+      },
+      "import": "./dist/browser/index.js",
+      "require": "./dist/browser/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "developer-tools",
+    "utilities",
+    "browser",
+    "typescript",
+    "zero-dependencies",
+    "pastebin",
+    "ansi-color",
+    "xpath",
+    "css-selector",
+    "email-extractor",
+    "hex-view",
+    "html-preview",
+    "keycode",
+    "lua-validator",
+    "raw-file-view",
+    "stack-trace-parser"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/ tests/",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "test:smoke": "node scripts/smoke-esm.mjs && node scripts/smoke-cjs.cjs",
+    "test:consumer": "node scripts/verify-tarball.mjs",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "@vitest/browser": "^3.0.7",
+    "@vitest/coverage-v8": "^3.0.7",
+    "eslint": "^9.21.0",
+    "playwright": "^1.50.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false
+}
