@@ -41,8 +41,7 @@ describe("pastebin utility", () => {
     expect(() =>
       createSnippetPayload({ content: "code", expiresAt: "not-a-date" })
     ).toThrow(ValidationError);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(() => createSnippetPayload({ content: "code", expiresAt: {} as any })).toThrow(
+    expect(() => createSnippetPayload({ content: "code", expiresAt: {} as Record<string, never> })).toThrow(
       ValidationError
     );
   });
@@ -57,10 +56,10 @@ describe("pastebin utility", () => {
   });
 
   it("throws ValidationError when options or content is invalid", () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(() => createSnippetPayload(null as any)).toThrow(ValidationError);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(() => createSnippetPayload({} as any)).toThrow(ValidationError);
+    expect(() => createSnippetPayload(null as unknown as Parameters<typeof createSnippetPayload>[0])).toThrow(
+      ValidationError
+    );
+    expect(() => createSnippetPayload({} as Record<string, never>)).toThrow(ValidationError);
   });
 
   it("encodes and decodes snippet payload accurately (round-trip)", () => {
@@ -82,8 +81,7 @@ describe("pastebin utility", () => {
   });
 
   it("throws on invalid snippet to encode or decode", () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(() => encodeSnippet({} as any)).toThrow(ValidationError);
+    expect(() => encodeSnippet({} as Record<string, never>)).toThrow(ValidationError);
     expect(() => decodeSnippet("")).toThrow(ValidationError);
     expect(() => decodeSnippet("not valid base64 json !@#$")).toThrow(ValidationError);
   });
@@ -111,7 +109,7 @@ describe("pastebin utility", () => {
   });
 
   it("Mode B: creates pastebin client with external storage adapter", async () => {
-    const storage = new Map<string, any>();
+    const storage = new Map<string, { content: string }>();
     const client = createPastebinClient({
       async publishSnippet(snippet) {
         const id = "snippet-123";
@@ -133,7 +131,6 @@ describe("pastebin utility", () => {
 
   it("Mode B: throws ConfigurationError when adapter is missing or incomplete", () => {
     expect(() => createPastebinClient()).toThrow(ConfigurationError);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(() => createPastebinClient({} as any)).toThrow(ConfigurationError);
+    expect(() => createPastebinClient({} as Record<string, never>)).toThrow(ConfigurationError);
   });
 });

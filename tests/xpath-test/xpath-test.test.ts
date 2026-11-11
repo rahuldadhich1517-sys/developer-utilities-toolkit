@@ -28,11 +28,11 @@ class MockXPathResult {
   numberValue?: number;
   stringValue?: string;
   booleanValue?: boolean;
-  singleNodeValue?: any;
-  private nodes: any[];
+  singleNodeValue?: unknown;
+  private nodes: unknown[];
   private idx = 0;
 
-  constructor(type: number, data: any) {
+  constructor(type: number, data: unknown) {
     this.resultType = type;
     this.nodes = Array.isArray(data) ? data : [];
     if (type === 1) this.numberValue = data;
@@ -50,7 +50,7 @@ class MockXPathResult {
 }
 
 class MockDocument {
-  evaluate(expr: string, _context: any, _resolver: any, _type: number, _result: any) {
+  evaluate(expr: string, _context: unknown, _resolver: unknown, _type: number, _result: unknown) {
     if (expr.includes("INVALID")) {
       throw new Error(`Syntax error in XPath expression: "${expr}"`);
     }
